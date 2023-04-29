@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
-const mysql = require('mysql2');
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -16,25 +14,28 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-//   host: process.env.DB_HOST,
-//   dialect: 'mysql'
-// });
-
-// try {
-//   sequelize.authenticate();
-//   console.log('Connection has been established successfully.');
-// } catch (error) {
-//   console.error('Unable to connect to the database:', error);
-// }
-
-const db = mysql.createPool({
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
+  dialect: 'mysql',
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
 
+try {
+  sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+const db = require("./models");
+
+db.sequelize.sync().then((req) => {
+  app.listen(5000, () => {
+    console.log("server running");
+  });
+});
 
 // Main
 app.get("/", (req, res) => {

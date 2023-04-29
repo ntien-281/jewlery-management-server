@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "ntien281",
+    "database": "store",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "ntien281",
+    "database": "store",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "ntien281",
+    "database": "store",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
