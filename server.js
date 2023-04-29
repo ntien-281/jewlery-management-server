@@ -42,12 +42,13 @@ app.get("/", (req, res) => {
   res.render("/public/index", { });
 })
 
-app.get("/products", (req, res) => {
-  db.query("SELECT * FROM sanpham", (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
-});
+// Test using local db
+// app.get("/products", (req, res) => {
+//   db.query("SELECT * FROM sanpham", (err, result) => {
+//     if (err) throw err;
+//     res.send(result);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

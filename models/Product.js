@@ -1,19 +1,22 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = new Sequelize("sqlite::memory:");
 
-
-const Products = sequelize.define("SANPHAM", {
-  MaSP: {
-    type: DataTypes.INTERGER,
-    allowNull: false,
-  },
-  TenSP: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  // Modal options
-});
-
-
-console.log(User === sequelize.models.User);
+module.exports = (sequelize, DataTypes) => {
+  const Products = sequelize.define(
+    "SANPHAM",
+    {
+      MaSP: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      TenSP: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      // Modal options
+    }
+  );
+  return Products;
+};
