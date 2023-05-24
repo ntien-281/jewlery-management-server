@@ -4,7 +4,7 @@ const cors = require('cors');
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Enable CORS
 app.use(cors());
@@ -42,13 +42,25 @@ app.get("/", (req, res) => {
   res.render("/public/index", { });
 })
 
-// Test using local db
-// app.get("/products", (req, res) => {
-//   db.query("SELECT * FROM sanpham", (err, result) => {
-//     if (err) throw err;
-//     res.send(result);
-//   });
-// });
+// Router list
+const productRouter = require("./routes/product/product");
+const productTypeRouter = require("./routes/product_type/product_type");
+const buyRouter = require("./routes/buy/buy");
+const sellRouter = require("./routes/sell/sell");
+const serviceRouter = require("./routes/service/service");
+const serviceFormRouter = require("./routes/service_form/service_form");
+const supplierRouter = require("./routes/supplier/supplier");
+const reportRouter = require("./routes/report/report");
+
+app.use("/product", productRouter);
+app.use("/product-type", productTypeRouter);
+app.use("/buy", buyRouter);
+app.use("/sell", sellRouter);
+app.use("/service", serviceRouter);
+app.use("/service-form", serviceFormRouter);
+app.use("/supplier", supplierRouter);
+app.use("/report", reportRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
