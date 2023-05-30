@@ -1,13 +1,16 @@
-const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
+const helmet = require('helmet');
+
+
+const express = require('express');
 const app = express();
+
 const PORT = process.env.PORT || 5001;
 
 // Enable CORS
-app.use(cors());
 app.use(express.static("public"));
 
 // Use body-parser middleware to parse request bodies
@@ -52,6 +55,14 @@ const serviceFormRouter = require("./routes/service_form/service_form");
 const supplierRouter = require("./routes/supplier/supplier");
 const reportRouter = require("./routes/report/report");
 
+// Error handlers
+app.use(express.json());
+app.use(helmet());
+app.use(cors());
+
+
+
+// Use routers
 app.use("/product", productRouter);
 app.use("/product-type", productTypeRouter);
 app.use("/buy", buyRouter);
@@ -60,8 +71,13 @@ app.use("/service", serviceRouter);
 app.use("/service-form", serviceFormRouter);
 app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
+// use Middleware for error and not found
 
 
-app.listen(PORT, () => {
+
+
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  await sequelize.authenticate();
+  console.log("Database connected");
 });

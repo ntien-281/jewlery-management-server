@@ -1,9 +1,9 @@
 const express = require('express');
+const { getAllProductTypes, createNewProductType } = require('../../controllers/ProductTypeController');
 const router = express.Router();
 
 
-router.get("/", (req, res) => {
-  res.send("This return all product types, modify in routes/product_type/product_type.js");
-})
+router.get("/", getAllProductTypes);
+router.post("/new-type", createNewProductType)
 
 module.exports = router;

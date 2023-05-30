@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": "ntien281",
-    "database": "store",
+    "database": "test_db",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "ntien281",
-    "database": "store",
+    "database": "test_db",
     "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "ntien281",
-    "database": "store",
+    "database": "test_db",
     "host": "localhost",
     "dialect": "mysql"
   }
