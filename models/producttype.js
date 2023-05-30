@@ -11,15 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Product }) {
       // define association here
-      this.hasMany(Product, {
-        foreignKey: 'ProductId'
-      })
+      this.hasMany(Product)
     }
   }
   ProductType.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     id: {
       type: DataTypes.UUID,

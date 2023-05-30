@@ -36,4 +36,21 @@ const createNewProductType = async (req, res) => {
   }
 }
 
-module.exports = { getAllProductTypes, createNewProductType }
+// Tìm với id
+const getWithId = async (req, res) => {
+  const toFindId = req.params.id;
+  try {
+    const result = await ProductTypes.findByPk(toFindId);
+    if (result) {
+      console.log(`Product type with id ${toFindId} found.`);
+      res.status(200).send(result);
+    }
+    else {
+      res.status(200).send("Product type couldn't be found");
+    }
+  } catch (error) {
+    res.status(500).send("Something went wrong")
+  }
+}
+
+module.exports = { getAllProductTypes, createNewProductType, getWithId }
