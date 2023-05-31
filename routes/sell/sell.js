@@ -1,8 +1,8 @@
 const express = require('express');
+const { createSellForm, getAllSellForm } = require('../../controllers/sellform.controller.js');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send("This gets all sell invoices, modify in routes/sell/sell.js");
-});
+router.get('/', getAllSellForm);
+router.post('/create', createSellForm);
 
 module.exports = router;
