@@ -1,13 +1,13 @@
 const Product = require("./product");
-const SellForm = require("./sellform");
+const BuyForm = require("./buyform");
 
 module.exports = (sequelize, DataTypes) => {
 
-  const SellFormDetail = sequelize.define("SellFormDetail", {
-    SellFormId: {
+  const BuyFormDetail = sequelize.define("BuyFormDetail", {
+    BuyFormId: {
       type: DataTypes.UUID,
       references: {
-        model: SellForm,
+        model: BuyForm,
         key: 'id'
       },
       unique: true,
@@ -31,6 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  return SellFormDetail;
+  return BuyFormDetail;
 
 }
