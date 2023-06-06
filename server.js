@@ -81,3 +81,10 @@ app.listen(PORT, async () => {
   await sequelize.authenticate();
   console.log("Database connected");
 });
+
+// TODO:
+// * BuyForm controller
+// * Supplier controller
+// * Authorization tables, controllers
+// * ServiceForm tables, controllers
+// * Reports tables, controllers

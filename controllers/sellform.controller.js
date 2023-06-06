@@ -17,8 +17,29 @@ const createSellForm = async (req, res) => {
   }
 }
 
+
+// INFO: "include"s to get details, related product types.
 const getAllSellForm = async (req, res) => {
-  let forms = await SellForm.findAll();
+  let forms = await SellForm.findAll({
+    include: [
+      {
+        model: db.SellFormDetail,
+        as: "detail",
+        include: [
+          {
+            model: db.Product,
+            as: "product",
+            include: [
+              {
+                model: db.ProductType,
+                as: "type",
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  });
   if (forms) {
     if (forms.length <= 0) res.status(200).send("No product found");
     else {

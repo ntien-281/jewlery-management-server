@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
+  // TODO: link to service form detail
+
   return ServiceType;
 
 }
