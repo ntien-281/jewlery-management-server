@@ -38,7 +38,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   })
-  // TODO: link to serviceform detail
+
+  ServiceForm.associate = (models) => {
+    ServiceForm.belongsToMany(models.ServiceType, {
+      through: models.ServiceFormDetail
+    })
+    ServiceForm.hasMany(models.ServiceFormDetail)
+  }
 
   return ServiceForm;
 }

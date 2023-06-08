@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     BuyForm.belongsToMany(models.Product, {
       through: models.BuyFormDetail
     });
+    BuyForm.hasMany(models.BuyFormDetail);
     BuyForm.belongsTo(models.Supplier, {
       foreignKey: "SupplierId",
     });
