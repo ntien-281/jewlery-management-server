@@ -3,6 +3,7 @@ const cors = require('cors');
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
 
 const express = require('express');
@@ -54,12 +55,12 @@ const serviceRouter = require("./routes/service/service");
 const serviceFormRouter = require("./routes/service_form/service_form");
 const supplierRouter = require("./routes/supplier/supplier");
 const reportRouter = require("./routes/report/report");
-
+const userRouter = require("./routes/user/user")
 // Error handlers
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
-
+app.use(cookieParser());
 
 
 // Use routers
@@ -71,6 +72,7 @@ app.use("/service", serviceRouter);
 app.use("/service-form", serviceFormRouter);
 app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
+app.use("/user", userRouter)
 // use Middleware for error and not found
 
 
