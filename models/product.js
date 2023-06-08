@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(SellForm, {
         through: SellFormDetail
       });
+      this.hasMany(SellFormDetail)
       this.belongsToMany(BuyForm, {
         through: BuyFormDetail
       });

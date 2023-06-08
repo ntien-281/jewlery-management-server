@@ -24,15 +24,12 @@ const getAllSellForm = async (req, res) => {
     include: [
       {
         model: db.SellFormDetail,
-        as: "detail",
         include: [
           {
             model: db.Product,
-            as: "product",
             include: [
               {
                 model: db.ProductType,
-                as: "type",
               }
             ]
           }
@@ -41,7 +38,7 @@ const getAllSellForm = async (req, res) => {
     ]
   });
   if (forms) {
-    if (forms.length <= 0) res.status(200).send("No product found");
+    if (forms.length <= 0) res.status(200).send("No sales found");
     else {
       res.status(200).send(forms);
     }

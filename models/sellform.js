@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     SellForm.belongsToMany(models.Product, {
       through: models.SellFormDetail
     })
+    SellForm.hasMany(models.SellFormDetail)
   }
 
   return SellForm;
