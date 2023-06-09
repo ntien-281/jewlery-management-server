@@ -2,6 +2,8 @@ const db = require('../models');
 
 const BuyForm = db.BuyForm;
 
+
+// TODO: complete post request logic with buyformdetail controller, see sell form for more details
 const createBuyForm = async (req, res) => {
   const { date, total } = req.body;
   let result;
