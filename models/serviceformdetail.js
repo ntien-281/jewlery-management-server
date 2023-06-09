@@ -1,22 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
   const ServiceFormDetail = sequelize.define("ServiceFormDetail", {
-    ServiceFormId: {
-      type: DataTypes.UUID,
-      // references: {
-      //   model: ServiceForm,
-      //   key: 'id'
-      // },
-      unique: true,
-    },
-    ServiceTypeId: {
-      type: DataTypes.UUID,
-      // references: {
-      //   model: Product,
-      //   key: 'id'
-      // },
-      unique: true,
-    },
     quantity: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -45,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   });
+
+  ServiceFormDetail.associate = (models) => {
+    ServiceFormDetail.belongsTo(models.ServiceForm);
+    ServiceFormDetail.belongsTo(models.ServiceType);
+  }
 
   return ServiceFormDetail;
 
