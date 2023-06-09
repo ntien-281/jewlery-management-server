@@ -39,7 +39,7 @@ const getAllBuyForm = async (req, res) => {
     ]
   });
   if (forms) {
-    if (forms.length <= 0) res.status(200).send("No sales found");
+    if (forms.length <= 0) res.status(200).send("No buyform found");
     else {
       res.status(200).send(forms);
     }
