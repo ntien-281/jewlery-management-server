@@ -9,6 +9,6 @@ const {
 
 router.post('/signup', userAuth.saveUser, signup);
 router.post('/login', login);
-router.post('/logout', logout);
+router.post('/logout', userAuth.verifyAccessToken, logout);
 
 module.exports = router;
