@@ -40,7 +40,18 @@ const verifyAccessToken = async (req, res, next) => {
         return res.status(403).send("A token is required for authentication");
     }
     try {
+        const user = await User.findOne({
+            where: {
+                token: token,
+            },
+        });
+        if(!user){
+            return res.status(401).send("Authorization error");
+        }
         const decodedUser = jwt.verify(token, process.env.secretKey);
+        if(user.username != decodedUser.username){
+            return res.status(401).send("Invalid Token");
+        }
         req.user = decodedUser;
     } catch (err) {
         console.log(err);

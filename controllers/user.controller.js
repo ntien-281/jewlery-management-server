@@ -60,4 +60,18 @@ const login = async (req, res) => {
         return res.status(401).send(error);
     }
 }
-module.exports = { signup, login };
+
+const logout = async (req, res) => {
+    try{
+        const username = req.user;
+        let user = await User.findOne( {username} );
+        user.token = "";
+        await user.save();
+        return res.status(500).send("Logged out succesful");
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).send(err);
+    }
+};
+module.exports = { signup, login, logout };
