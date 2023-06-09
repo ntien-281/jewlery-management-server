@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
   BuyFormDetail.associate = (models) => {
     BuyFormDetail.belongsTo(models.Product);
+    BuyFormDetail.belongsTo(models.ProductType);
     BuyFormDetail.belongsTo(models.BuyForm);
   }
 

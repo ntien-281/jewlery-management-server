@@ -22,6 +22,19 @@ const getAllProductTypes = async (req, res) => {
 // Tạo loại sp mới
 const createNewProductType = async (req, res) => {
   const { name, unit, interest } = req.body;
+  if (!name || !unit || !interest) {
+    res.status(400).send("Please provide name, unit and interest");
+  }
+  const duplicate = await ProductTypes.findOne({
+    where: {
+      name: name,
+    },
+  });
+  if (duplicate) {
+    console.log("duplicate record found");
+    res.status(200).send("Name already exists");
+    return;
+  }
   const newType = await ProductTypes.create({
     name,
     unit,
@@ -67,4 +80,9 @@ const updateProductType = async (req, res) => {
   }
 };
 
-module.exports = { getAllProductTypes, createNewProductType, getWithId, updateProductType };
+module.exports = {
+  getAllProductTypes,
+  createNewProductType,
+  getWithId,
+  updateProductType,
+};

@@ -3,7 +3,13 @@ const db = require('../models')
 const Product = db.Product
 
 const getAllProducts = async (req, res) => {
-  const products = await Product.findAll();
+  const products = await Product.findAll({
+    include: [
+      {
+        model: db.ProductType
+      }
+    ]
+  });
   // console.log(products);
   if (products) {
     if (products.length <= 0) res.status(200).send("No product found");
@@ -17,6 +23,16 @@ const createProduct = async (req, res) => {
   const { name, price, stock, ProductTypeId } = req.body;
   let result;
   if (!name || !price) { res.status(400).send("Please provide name and price, stock will be automatically set to 0.") }
+  const duplicate = await Product.findOne({
+    where: {
+      name: name
+    }
+  });
+  if (duplicate) {
+    console.log("duplicate record found");
+    res.status(200).send("Name already exists");
+    return;
+  }
   try {
     result = await db.ProductType.findByPk(ProductTypeId);
     if (!result) {
@@ -55,6 +71,16 @@ const getWithId = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { name, price, stock, ProductTypeId } = req.body;
+  const duplicate = await Product.findOne({
+    where: {
+      name: name
+    }
+  });
+  if (duplicate) {
+    console.log("duplicate record found");
+    res.status(200).send("Name already exists");
+    return;
+  }
   const updateId = req.params.id;
   let product = await Product.findByPk(updateId);
   if (product) {

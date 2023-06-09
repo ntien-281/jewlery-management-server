@@ -1,9 +1,22 @@
 const db = require('../models');
+const { createSellDetails } = require('./sellformdetail.controller');
 
 const SellForm = db.SellForm;
 
+
+// Reference cart:
+// cart = [
+//   {
+//     ProductId,
+//     ProductTypeId,
+//     quantity,
+//     subtotal,
+//     SellFormId,
+//   }
+// ]
 const createSellForm = async (req, res) => {
-  const { customer, total } = req.body;
+  const { customer, cart, total } = req.body;
+  let sellId;
   let result;
   try {
     result = await SellForm.create({ customer, total });
@@ -12,9 +25,17 @@ const createSellForm = async (req, res) => {
     res.status(500).send("Something went wrong")
   }
   if (result) {
-    console.log("Sell form created successfully");
+    sellId = result.id;
+    console.log("Sell form initialized successfully", sellId);
     res.status(200).send(result);
+    cart = cart.forEach(item => {
+      return {
+        ...item,
+        SellFormId: sellId
+      }
+    });
   }
+  createSellDetails(cart);
 }
 
 

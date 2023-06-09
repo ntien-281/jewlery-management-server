@@ -1,6 +1,3 @@
-const Product = require("./product");
-const SellForm = require("./sellform");
-
 module.exports = (sequelize, DataTypes) => {
 
   const SellFormDetail = sequelize.define("SellFormDetail", {
@@ -17,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
   SellFormDetail.associate = (models) => {
     SellFormDetail.belongsTo(models.Product);
+    SellFormDetail.belongsTo(models.ProductType);
     SellFormDetail.belongsTo(models.SellForm);
   }
 
