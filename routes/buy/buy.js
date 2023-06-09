@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const buyController = require('../../controllers/buyform.controller')
 
-router.get('/', (req, res) => {
-  res.send("This gets all buy invoices, modify in routes/buy/buy.js");
-});
+router.get('/', buyController.getAllBuyForm);
+router.get('/create', buyController.createBuyForm);
 
 module.exports = router;

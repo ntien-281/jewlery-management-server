@@ -55,7 +55,11 @@ const serviceRouter = require("./routes/service/service");
 const serviceFormRouter = require("./routes/service_form/service_form");
 const supplierRouter = require("./routes/supplier/supplier");
 const reportRouter = require("./routes/report/report");
-const userRouter = require("./routes/user/user")
+const userRouter = require("./routes/user/user");
+
+//Middleware list
+const authentication = require("./middleware/userauth");
+
 // Error handlers
 app.use(express.json());
 app.use(helmet());
@@ -63,6 +67,9 @@ app.use(cors());
 app.use(cookieParser());
 
 
+app.use("/user", userRouter)
+//Check user is logged in
+app.use(authentication.verifyAccessToken);
 // Use routers
 app.use("/product", productRouter);
 app.use("/product-type", productTypeRouter);
@@ -72,7 +79,7 @@ app.use("/service", serviceRouter);
 app.use("/service-form", serviceFormRouter);
 app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
-app.use("/user", userRouter)
+
 // use Middleware for error and not found
 
 
