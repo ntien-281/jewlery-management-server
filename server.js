@@ -35,7 +35,7 @@ try {
 
 const db = require("./models");
 
-db.sequelize.sync({ force: true }).then((req) => {
+db.sequelize.sync().then((req) => {
   app.listen(5000, () => {
     console.log("server running");
   });

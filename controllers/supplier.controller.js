@@ -1,6 +1,6 @@
 const db = require('../models')
 
-const Supplier = db.Supplier
+const Supplier = db.Supplier;
 
 const getAllSuppliers = async (req, res) => {
   const Suppliers = await Supplier.findAll();
@@ -15,7 +15,7 @@ const getAllSuppliers = async (req, res) => {
 const createSupplier = async (req, res) => {
   const { name, address, phone } = req.body;
   let result;
-  if (!name || !phone) { res.status(400).send("Please provide name and phone number") };
+  if (!name || !phone || !address) { res.status(400).send("Please provide name, phone number and address") };
   result = await Supplier.findOne({
     where : {
         name: name
@@ -39,14 +39,14 @@ const createSupplier = async (req, res) => {
 const updateSupplier = async (req, res) => {
   const { name, address, phone } = req.body;
   const updateId = req.params.id;
-  let Supplier = await Supplier.findByPk(updateId);
-  if (Supplier) {
-    Supplier.name = name ? name : Supplier.name;
-    Supplier.address = address ? address : Supplier.address;
-    Supplier.phone = phone ? phone : Supplier.phone;
-    await Supplier.save();
+  let updatedSupplier = await Supplier.findByPk(updateId);
+  if (updatedSupplier) {
+    updatedSupplier.name = name ? name : updatedSupplier.name;
+    updatedSupplier.address = address ? address : updatedSupplier.address;
+    updatedSupplier.phone = phone ? phone : updatedSupplier.phone;
+    await updatedSupplier.save();
     console.log(`Supplier ${updateId} updated succesfully.`);
-    res.status(200).send(Supplier);
+    res.status(200).send(updatedSupplier);
   }
   else {
     res.status(400).send("Supplier not found.");

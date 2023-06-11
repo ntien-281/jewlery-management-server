@@ -3,6 +3,6 @@ const router = express.Router();
 const buyController = require('../../controllers/buyform.controller')
 
 router.get('/', buyController.getAllBuyForm);
-router.get('/create', buyController.createBuyForm);
+router.post('/create', buyController.createBuyForm);
 
 module.exports = router;
