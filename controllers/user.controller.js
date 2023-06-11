@@ -67,7 +67,7 @@ const logout = async (req, res) => {
         let user = await User.findOne( {username} );
         user.token = "";
         await user.save();
-        return res.status(500).send("Logged out succesful");
+        return res.status(200).send("Logged out succesful");
     }
     catch(err){
         console.log(err);
