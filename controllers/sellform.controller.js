@@ -1,8 +1,7 @@
-const db = require('../models');
-const { createSellDetails } = require('./sellformdetail.controller');
+const db = require("../models");
+const { createSellDetails } = require("./sellformdetail.controller");
 
 const SellForm = db.SellForm;
-
 
 // Reference cart:
 // cart = [
@@ -11,33 +10,32 @@ const SellForm = db.SellForm;
 //     ProductTypeId,
 //     quantity,
 //     subtotal,
-//     SellFormId,
 //   }
 // ]
 const createSellForm = async (req, res) => {
   const { customer, cart, total } = req.body;
   let sellId;
   let result;
+  let cartToDetails;
   try {
     result = await SellForm.create({ customer, total });
-  } catch(err) {
+  } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong")
+    res.status(500).send("Something went wrong");
   }
   if (result) {
     sellId = result.id;
     console.log("Sell form initialized successfully", sellId);
     res.status(200).send(result);
-    cart = cart.forEach(item => {
+    cartToDetails = cart.map((item) => {
       return {
         ...item,
-        SellFormId: sellId
-      }
+        SellFormId: sellId,
+      };
     });
   }
-  createSellDetails(cart);
-}
-
+  await createSellDetails(cartToDetails);
+};
 
 // INFO: "include"s to get details, related product types.
 const getAllSellForm = async (req, res) => {
@@ -48,25 +46,22 @@ const getAllSellForm = async (req, res) => {
         include: [
           {
             model: db.Product,
-            include: [
-              {
-                model: db.ProductType,
-              }
-            ]
-          }
-        ]
-      }
-    ]
+          },
+          {
+            model: db.ProductType,
+          },
+        ],
+      },
+    ],
   });
   if (forms) {
     if (forms.length <= 0) res.status(200).send("No sales found");
     else {
       res.status(200).send(forms);
     }
+  } else {
+    res.status(500).send("Something went wrong");
   }
-  else {
-    res.status(500).send("Something went wrong")
-  }
-}
+};
 
-module.exports = { createSellForm, getAllSellForm }
+module.exports = { createSellForm, getAllSellForm };

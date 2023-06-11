@@ -97,4 +97,18 @@ const updateProduct = async (req, res) => {
   }
 }
 
-module.exports = { getAllProducts, createProduct, getWithId, updateProduct }
+const updateStock = async (productId, qty) => {
+  let product;
+  try {
+    product = await Product.findByPk(productId);
+    if (product) {
+      product.stock = product.stock - qty;
+      await product.save();
+      console.log(`Product ${updateId}'s stock updated succesfully.`);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
+
+module.exports = { getAllProducts, createProduct, getWithId, updateProduct, updateStock }
