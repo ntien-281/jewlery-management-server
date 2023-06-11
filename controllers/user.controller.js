@@ -63,8 +63,10 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     try{
-        const username = req.user;
-        let user = await User.findOne( {username} );
+        const username = req.user.username;
+        let user = await User.findOne( {
+            where: {username: username}
+        } );
         user.token = "";
         await user.save();
         return res.status(200).send("Logged out succesful");
