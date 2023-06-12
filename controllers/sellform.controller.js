@@ -1,7 +1,7 @@
 const db = require("../models");
 const { createSellDetails } = require("./sellformdetail.controller");
-
 const SellForm = db.SellForm;
+
 
 // Reference cart:
 // cart = [
@@ -16,6 +16,7 @@ const createSellForm = async (req, res) => {
   const { customer, cart, total } = req.body;
   let sellId;
   let result;
+  let response;
   let cartToDetails;
   try {
     result = await SellForm.create({ customer, total });
@@ -26,7 +27,7 @@ const createSellForm = async (req, res) => {
   if (result) {
     sellId = result.id;
     console.log("Sell form initialized successfully", sellId);
-    res.status(200).send(result);
+    response = {...result};
     cartToDetails = cart.map((item) => {
       return {
         ...item,
@@ -35,6 +36,7 @@ const createSellForm = async (req, res) => {
     });
   }
   await createSellDetails(cartToDetails);
+  res.status(200).send(response);
 };
 
 // INFO: "include"s to get details, related product types.

@@ -104,10 +104,10 @@ const updateStock = async (productId, qty) => {
     if (product) {
       product.stock = product.stock - qty;
       await product.save();
-      console.log(`Product ${updateId}'s stock updated succesfully.`);
+      console.log(`Product ${productId}'s stock updated succesfully.`);
     }
   } catch (error) {
-    res.status(500).send(error);
+    console.log(error)
   }
 }
 
