@@ -1,6 +1,5 @@
-
 module.exports = (sequelize, DataTypes) => {
-const UserGroup = sequelize.define("UserGroup", {
+const Permission = sequelize.define("Permission", {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -9,14 +8,16 @@ const UserGroup = sequelize.define("UserGroup", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false,
     }
     });
-    UserGroup.associate = (models) => {
-        UserGroup.hasMany(models.User)
-        UserGroup.belongsToMany(models.Permission, {
+    Permission.associate = (models) => {
+        Permission.belongsToMany(models.UserGroup,{
             through: models.GroupPermission
         })
-        UserGroup.hasOne(models.GroupPermission)
     };
-    return UserGroup;
+    return Permission;
 }
