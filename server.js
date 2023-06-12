@@ -58,7 +58,7 @@ const reportRouter = require("./routes/report/report");
 const userRouter = require("./routes/user/user");
 
 //Middleware list
-const authentication = require("./middleware/userauth");
+const authentication = require("./middleware/authentication");
 
 // Error handlers
 app.use(express.json());
