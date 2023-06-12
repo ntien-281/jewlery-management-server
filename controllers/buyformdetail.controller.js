@@ -1,4 +1,5 @@
 const db = require("../models");
+const { updateStock } = require("./product.controller");
 
 const BuyFormDetail = db.BuyFormDetail;
 const Product = db.Product;
@@ -16,27 +17,26 @@ const Product = db.Product;
 const createBuyDetails = async (cart) => {
   const result = await Promise.all(
     cart.map(async (item) => {
-      const product = await Product.findOne(item.ProductId);
-      if (item.quantity > product.stock) {
+      const product = await Product.findByPk(item.ProductId);
+      if (product) {
         try {
           await BuyFormDetail.create({
             ...item,
           });
-          await updateStock(item.ProductId, item.quantity);
+          await updateStock(item.ProductId, item.quantity, "buy");
         } catch (error) {
           console.log("Something went wrong", error);
-          res.status(500).send(error);
           return;
         }
       } else {
-        res.status(400).send("Stock not enough");
+        console.log("Not found product");
         return;
       }
     })
   ).then(details => {
-    console.log("Details created");
+    console.log("Details created", details);
   }).catch(err => {
-    res.status(400).send("Something went wrong", err);
+    console.log(err);
   });
 }
 

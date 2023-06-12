@@ -7,6 +7,7 @@ const BuyForm = db.BuyForm;
 const createBuyForm = async (req, res) => {
   const { total, cart, SupplierId } = req.body;
   let result;
+  let response;
   let buyId;
   let cartToDetails;
   try {
@@ -17,8 +18,8 @@ const createBuyForm = async (req, res) => {
   }
   if (result) {
     buyId = result.id;
-    console.log("Buy form initialized successfully");
-    res.status(200).send(result);
+    console.log("Buy form initialized successfully", buyId);
+    response = {...result};
     cartToDetails = cart.map((item) => {
       return {
         ...item,
@@ -27,6 +28,7 @@ const createBuyForm = async (req, res) => {
     });
   }
   await createBuyDetails(cartToDetails);
+  res.status(200).send(response);
 };
 
 const getAllBuyForm = async (req, res) => {

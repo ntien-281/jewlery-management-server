@@ -97,12 +97,16 @@ const updateProduct = async (req, res) => {
   }
 }
 
-const updateStock = async (productId, qty) => {
+const updateStock = async (productId, qty, type="sell") => {
   let product;
   try {
     product = await Product.findByPk(productId);
     if (product) {
-      product.stock = product.stock - qty;
+      if (type === "buy") {
+        product.stock = product.stock + qty;
+      } else {
+        product.stock = product.stock - qty;
+      }
       await product.save();
       console.log(`Product ${productId}'s stock updated succesfully.`);
     }

@@ -15,7 +15,6 @@ const Product = db.Product;
 // ]
 
 const createSellDetails = async (cart) => {
-  console.log(cart);
   const result = await Promise.all(
     cart.map(async (item) => {
       const product = await Product.findByPk(item.ProductId);
