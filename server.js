@@ -63,7 +63,10 @@ const authentication = require("./middleware/authentication");
 // Error handlers
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: process.env.FE_ORIGIN,
+  credentials: true
+}));
 app.use(cookieParser());
 
 
