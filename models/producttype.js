@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Product, BuyFormDetail, SellFormDetail }) {
+    static associate({ Product, BuyFormDetail, SellFormDetail, ReportDetail }) {
       // define association here
       this.hasMany(Product)
       this.hasMany(BuyFormDetail)
       this.hasMany(SellFormDetail)
+      this.hasMany(ReportDetail)
     }
   }
   ProductType.init({
