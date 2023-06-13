@@ -52,7 +52,7 @@ const login = async (req, res) => {
         });
         user.token = token;
         await user.save();
-        res.cookie("jwt", token, { maxAge: process.env.cookieAge, httpOnly: true });
+        res.cookie("jwt", token, { maxAge: 24 * 60 * 60 * 1000 * 7, httpOnly: true, sameSite: 'None', secure: 'true' });
         return res.status(201).send({user, token});
     }
     catch(error){
