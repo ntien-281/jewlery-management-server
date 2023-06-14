@@ -1,42 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
     const Report = sequelize.define("Report", {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true
+      },
       month: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: true,
+        max: 12,
+        min: 1
       },
       year: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: true,
       },
-      customers: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      products: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      revenue: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      profit: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        defaultValue: 0,
-      }
     })
   
     Report.associate = (models) => {
-      Report.belongsToMany(models.SellForm, {
+      Report.belongsToMany(models.Product, {
         through: models.ReportDetail
       })
-      Report.hasMany(models.ReportDetail)
+      Report.hasMany(models.ReportDetail);
     }
   
     return Report;

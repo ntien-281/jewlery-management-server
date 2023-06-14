@@ -1,15 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
 
     const ReportDetail = sequelize.define("ReportDetail", {
-      quantity: {
+      totalImport: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
+        defaultValue: 0,
       },
-      subtotal: {
-        type: DataTypes.BIGINT,
+      totalExport: {
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         defaultValue: 0,
-      }
+      },
+      beginStock: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      endStock: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        defaultValue: 0,
+      },
     });
   
     ReportDetail.associate = (models) => {
