@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const reportController = require('../../controllers/report.controller')
 
-router.get('/', (req, res) => {
-  res.send("This return list of reports, modify at routes/report/report.js");
-})
-
+router.get('/', reportController.getAllReport)
+router.post('/create', reportController.createReport);
 
 module.exports = router;
