@@ -15,31 +15,39 @@ const Product = db.Product;
 // ]
 
 const createSellDetails = async (cart) => {
+  let success;
   const result = await Promise.all(
     cart.map(async (item) => {
-      const product = await Product.findByPk(item.ProductId);
-      if (product && item.quantity < product.stock) {
-        try {
-          await SellFormDetail.create({
+      try {
+        const product = await Product.findByPk(item.ProductId);
+        if (product && item.quantity < product.stock) {
+          const created = await SellFormDetail.create({
             ...item,
           });
           await updateStock(item.ProductId, item.quantity);
-        } catch (error) {
-          console.log("Something went wrong", error);
-          return;
+          console.log(created);
+          if (!created) {
+            success = false;
+          }
+        } else {
+          console.log("Not enough stock");
+          success = false;
         }
-      } else {
-        console.log("Not enough stock");
-        return;
+      } catch (error) {
+        console.log("Something went wrong", error);
+        success = false;
       }
     })
   )
     .then((details) => {
-      console.log("Details created", details);
+      console.log("Details created");
+      success = true;
     })
     .catch((err) => {
       console.log(err);
+      success =  false;
     });
+  return success;
 };
 
 module.exports = { createSellDetails };

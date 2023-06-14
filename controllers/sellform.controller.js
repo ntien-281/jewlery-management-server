@@ -20,23 +20,31 @@ const createSellForm = async (req, res) => {
   let cartToDetails;
   try {
     result = await SellForm.create({ customer, total });
+    if (result) {
+      sellId = result.id;
+      console.log("Sell form initialized successfully", sellId);
+      response = {...result};
+      cartToDetails = cart.map((item) => {
+        return {
+          ...item,
+          SellFormId: sellId,
+        };
+      });
+    }
+    const success = await createSellDetails(cartToDetails);
+    if (!success) {
+      res.status(400).send("Something went wrong");
+      await result.destroy();
+      return;
+    }
+    res.status(200).send(response);
   } catch (err) {
     console.log(err);
+    if (result) {
+      await result.destroy();
+    }
     res.status(500).send("Something went wrong");
   }
-  if (result) {
-    sellId = result.id;
-    console.log("Sell form initialized successfully", sellId);
-    response = {...result};
-    cartToDetails = cart.map((item) => {
-      return {
-        ...item,
-        SellFormId: sellId,
-      };
-    });
-  }
-  await createSellDetails(cartToDetails);
-  res.status(200).send(response);
 };
 
 // INFO: "include"s to get details, related product types.

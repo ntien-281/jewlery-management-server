@@ -15,29 +15,40 @@ const Product = db.Product;
 // ]
 
 const createBuyDetails = async (cart) => {
+  let success;
   const result = await Promise.all(
     cart.map(async (item) => {
-      const product = await Product.findByPk(item.ProductId);
-      if (product) {
-        try {
-          await BuyFormDetail.create({
+      try {
+        const product = await Product.findByPk(item.ProductId);
+        if (product) {
+          const created = await BuyFormDetail.create({
             ...item,
           });
           await updateStock(item.ProductId, item.quantity, "buy");
-        } catch (error) {
-          console.log("Something went wrong", error);
-          return;
+          console.log(created);
+          if (!created) {
+            success = false;
+          }
+        } else {
+          console.log("Not found product");
+          success = false;
         }
-      } else {
-        console.log("Not found product");
-        return;
+      } catch (error) {
+        console.log("Something went wrong", error);
+        success = false;
       }
     })
-  ).then(details => {
-    console.log("Details created", details);
-  }).catch(err => {
-    console.log(err);
-  });
-}
+  )
+    .then((details) => {
+      console.log("Details created");
+      success = true;
+    })
+    .catch((err) => {
+      console.log(err);
+      success = false;
+    });
 
-module.exports = { createBuyDetails }
+  return success;
+};
+
+module.exports = { createBuyDetails };

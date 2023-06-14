@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
 const Paramater = sequelize.define("Paramater", {
     id:{
         type: DataTypes.INTEGER,
+        defaultValue: 0,
+        autoIncrement: true,
         allownull: false,
         primaryKey: true,
     },

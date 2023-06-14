@@ -12,23 +12,32 @@ const createBuyForm = async (req, res) => {
   let cartToDetails;
   try {
     result = await BuyForm.create({ total, SupplierId });
+    if (result) {
+      buyId = result.id;
+      console.log("Buy form initialized successfully", buyId);
+      response = {...result};
+      cartToDetails = cart.map((item) => {
+        return {
+          ...item,
+          BuyFormId: buyId,
+        };
+      });
+    }
+    const success = await createBuyDetails(cartToDetails);
+    if (!success) {
+      console.log(success);
+      res.status(400).send("Something went wrong");
+      await result.destroy();
+      return;
+    }
+    res.status(200).send(response);
   } catch (err) {
     console.log(err);
+    if (result) {
+      await result.destroy();
+    }
     res.status(500).send("Something went wrong");
   }
-  if (result) {
-    buyId = result.id;
-    console.log("Buy form initialized successfully", buyId);
-    response = {...result};
-    cartToDetails = cart.map((item) => {
-      return {
-        ...item,
-        BuyFormId: buyId,
-      };
-    });
-  }
-  await createBuyDetails(cartToDetails);
-  res.status(200).send(response);
 };
 
 const getAllBuyForm = async (req, res) => {

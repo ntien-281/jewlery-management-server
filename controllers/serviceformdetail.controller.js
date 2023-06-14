@@ -18,24 +18,32 @@ cart = [
 ]
 */
 const createServiceDetails = async (cart) => {
+  let success;
   const result = await Promise.all(
     cart.map(async (item) => {
       try {
-        await ServiceFormDetail.create({
+        const created = await ServiceFormDetail.create({
           ...item,
         });
+        console.log(created);
+        if (!created) {
+          success = false;
+        }
       } catch (error) {
         console.log("Something went wrong", error);
-        return;
+        success = false;
       }
     })
   )
     .then((details) => {
-      console.log("Details created", details);
+      console.log("Service details created", details);
+      success = true;
     })
     .catch((err) => {
       console.log(err);
+      success = false;
     });
+    return success;
 };
 
 const updateServiceDetail = async (req, res) => {
