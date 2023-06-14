@@ -16,6 +16,16 @@ const getAllServiceTypes = async (req, res) => {
 const updateServiceType = async (req, res) => {
   const serviceId = req.params.id;
   const { name, price } = req.body;
+  let duplicate = await ServiceType.findOne({
+    where: {
+      name: name,
+    }
+  });
+  if (duplicate) {
+    res.status(400).send("Duplicate name");
+    return;
+  }
+  
   const serviceType = await ServiceType.findByPk(serviceId)
     .then((serviceType) => {
       serviceType.name = name ? name : serviceType.name;

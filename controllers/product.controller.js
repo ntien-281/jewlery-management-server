@@ -78,7 +78,7 @@ const updateProduct = async (req, res) => {
   });
   if (duplicate) {
     console.log("duplicate record found");
-    res.status(200).send("Name already exists");
+    res.status(400).send("Name already exists");
     return;
   }
   const updateId = req.params.id;

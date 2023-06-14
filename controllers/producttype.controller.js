@@ -67,6 +67,15 @@ const getWithId = async (req, res) => {
 const updateProductType = async (req, res) => {
   const toUpdateId = req.params.id;
   const { name, unit, interest } = req.body;
+  let duplicate = await ProductTypes.findOne({
+    where: {
+      name: name,
+    }
+  });
+  if (duplicate) {
+    res.status(400).send("Duplicate name");
+    return;
+  }
   let productType = await ProductTypes.findByPk(toUpdateId);
   if (productType) {
     productType.name = name ? name : productType.name;

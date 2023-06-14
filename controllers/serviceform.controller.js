@@ -4,11 +4,11 @@ const { createServiceDetails } = require('./serviceformdetail.controller');
 const ServiceForm = db.ServiceForm;
 
 const createServiceForm = async (req, res) => {
-    const {customer, phone, date, total, paid, remain, status, cart} = req.body;
+    const {customer, phone, total, paid, remain, cart} = req.body;
     let serviceId;
     let result;
     try{
-        result = await ServiceForm.Create({customer, phone, date, total, paid, remain, status});
+        result = await ServiceForm.Create({customer, phone, total, paid, remain});
     }catch(err){
         console.log(err);
         res.status(500).send("Something went wrong");
@@ -16,16 +16,16 @@ const createServiceForm = async (req, res) => {
     if(result){
         serviceId = result.id;
         console.log("Service form initialized");
-        res.status(200).send(result);
         cart = cart.forEach(item => {
             return {
                 ...item,
                 ServiceFormId: serviceId
             }
         })
-
     }
-    createServiceDetails(cart);
+    await createServiceDetails(cart);
+    res.status(200).send(result);
+
 }
 
 const getAllServiceForm = async (req, res) => {

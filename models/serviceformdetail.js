@@ -4,13 +4,19 @@ module.exports = (sequelize, DataTypes) => {
     quantity: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      defaultValue: 0,
     },
     subtotal: {
       type: DataTypes.BIGINT,
       allowNull: false,
       defaultValue: 0,
     },
-    paid: {
+    incurred: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    prePaid: {
       type: DataTypes.BIGINT,
       allowNull: false,
       defaultValue: 0,
@@ -23,10 +29,12 @@ module.exports = (sequelize, DataTypes) => {
     deliverDate: {
       type: DataTypes.DATEONLY,
       allowNull: true,
+      defaultValue: "1900-01-01",
     },
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "Chưa giao"
     }
   });
 

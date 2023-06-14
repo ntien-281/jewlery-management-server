@@ -39,6 +39,15 @@ const createSupplier = async (req, res) => {
 const updateSupplier = async (req, res) => {
   const { name, address, phone } = req.body;
   const updateId = req.params.id;
+  let duplicate = await Supplier.findOne({
+    where: {
+      name: name,
+    }
+  });
+  if (duplicate) {
+    res.status(400).send("Duplicate name");
+    return;
+  }
   let updatedSupplier = await Supplier.findByPk(updateId);
   if (updatedSupplier) {
     updatedSupplier.name = name ? name : updatedSupplier.name;
