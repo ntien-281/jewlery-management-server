@@ -20,7 +20,7 @@ const createSellDetails = async (cart) => {
     cart.map(async (item) => {
       try {
         const product = await Product.findByPk(item.ProductId);
-        if (product && item.quantity < product.stock) {
+        if (product && item.quantity <= product.stock) {
           const created = await SellFormDetail.create({
             ...item,
           });
