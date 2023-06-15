@@ -3,7 +3,7 @@ const db = require('../models')
 const Parameter = db.Parameter;
 
 const createParameter = async (req, res) => {
-    const {name, value} = req.body;
+    const {id, name, value} = req.body;
     if(!name || !value)
         res.status(500).send("Please provide name and value");
     
@@ -16,7 +16,7 @@ const createParameter = async (req, res) => {
     if(result){
     return res.status(409).send("Parameter is already exists");
     }
-    result = await Parameter.create({ name, value});
+    result = await Parameter.create({ id, name, value});
     if(!result)
         return res.status(500).send("Something went wrong");
     res.status(200).send("New Parameter created");
@@ -25,7 +25,11 @@ const createParameter = async (req, res) => {
 const getParameter = async (req, res) => {
     let result;
     try {
-        result = await Parameter.findByPk(0);
+        result = await Parameter.findOne({
+            where: {
+                name: "minPrePaid"
+            }
+        });
         console.log(result);
         if (result) {
             res.status(200).send(result);
@@ -40,7 +44,11 @@ const updateParameter = async (req, res) => {
     const newValue = req.body.value;
     let result;
     try {
-        result = await Parameter.findByPk(id);
+        result = await Parameter.findOne({
+            where: {
+                name: "minPrePaid"
+            }
+        });
         if (result) {
             console.log("parameter befor", result)
             

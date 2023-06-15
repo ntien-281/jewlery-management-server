@@ -1,9 +1,8 @@
 
 module.exports = (sequelize, DataTypes) => {
-const Paramater = sequelize.define("Paramater", {
+const Parameter = sequelize.define("Parameter", {
     id:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
         autoIncrement: true,
         allownull: false,
         primaryKey: true,
@@ -17,5 +16,5 @@ const Paramater = sequelize.define("Paramater", {
         allownull: false
     }
     });
-    return Paramater;
+    return Parameter;
 }
