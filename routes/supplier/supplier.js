@@ -5,8 +5,8 @@ const controller = require("../../controllers/supplier.controller")
 
 router.get('/', controller.getAllSuppliers);
 router.post('/create', controller.createSupplier)
-
-//router.post('/create', checkUserPermission('createSupplier'), controller.createSupplier)
-
 router.put('/update/:id', controller.updateSupplier)
+//router.get('/', checkUserPermission('read'), controller.getAllSuppliers);
+//router.post('/create', checkUserPermission('create'), controller.createSupplier)
+//router.put('/update/:id', checkUserPermission('update'),controller.updateSupplier)
 module.exports = router;
