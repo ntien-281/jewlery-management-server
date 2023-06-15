@@ -1,31 +1,31 @@
 const db = require('../models')
 
-const Paramater = db.Paramater;
+const Parameter = db.Parameter;
 
-const createParamater = async (req, res) => {
+const createParameter = async (req, res) => {
     const {name, value} = req.body;
     if(!name || !value)
         res.status(500).send("Please provide name and value");
     
     let result;
-    result = await Paramater.findOne({
+    result = await Parameter.findOne({
         where : {
             name: name
         }
     })
     if(result){
-    return res.status(409).send("Paramater is already exists");
+    return res.status(409).send("Parameter is already exists");
     }
-    result = await Paramater.create({ name, value});
+    result = await Parameter.create({ name, value});
     if(!result)
         return res.status(500).send("Something went wrong");
-    res.status(200).send("New paramater created");
+    res.status(200).send("New Parameter created");
 }
 
-const getParamater = async (req, res) => {
+const getParameter = async (req, res) => {
     let result;
     try {
-        result = await Paramater.findByPk(0);
+        result = await Parameter.findByPk(0);
         console.log(result);
         if (result) {
             res.status(200).send(result);
@@ -35,12 +35,12 @@ const getParamater = async (req, res) => {
     }
 }
 
-const updateParamater = async (req, res) => {
+const updateParameter = async (req, res) => {
     const id = req.params.id;
     const newValue = req.body.value;
     let result;
     try {
-        result = await Paramater.findByPk(id);
+        result = await Parameter.findByPk(id);
         if (result) {
             console.log("parameter befor", result)
             
@@ -54,4 +54,4 @@ const updateParamater = async (req, res) => {
     }
 }
 
-module.exports = {createParamater, getParamater, updateParamater}
+module.exports = {createParameter, getParameter, updateParameter}

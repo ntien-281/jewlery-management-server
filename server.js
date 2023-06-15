@@ -56,11 +56,9 @@ const serviceFormRouter = require("./routes/service_form/service_form");
 const supplierRouter = require("./routes/supplier/supplier");
 const reportRouter = require("./routes/report/report");
 const userRouter = require("./routes/user/user");
-
+const parameterRouter = require("./routes/parameter/parameter");
 //Middleware list
 const authentication = require("./middleware/authentication");
-const { getParamater, createParamater, updateParamater } = require('./controllers/paramater.controller');
-
 // Error handlers
 app.use(express.json());
 app.use(helmet());
@@ -90,10 +88,7 @@ app.use("/service", serviceRouter);
 app.use("/service-form", serviceFormRouter);
 app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
-
-app.get("/parameter", getParamater)
-app.post("/parameter", createParamater)
-app.put("/parameter/:id", updateParamater)
+app.use("/parameter", parameterRouter);
 
 // use Middleware for error and not found
 
