@@ -26,7 +26,7 @@ const createReport = async (req, res) => {
           });
           const preStock = new Map();
           for(var product of products){
-            preStock.set(product.id, 0);
+            preStock.set(product.id, [product.ProductTypeId, 0]);
           }
           let prevReport = await Report.findOne({ 
             where: { month: prevMonth, year: prevYear}
@@ -36,7 +36,7 @@ const createReport = async (req, res) => {
               where: { id: prevReport.id },
             });
             for(var detail of prevDetails){
-              preStock.set(detail.ProductId, detail.endStock);
+              preStock.set(detail.ProductId, [detail.ProductTypeId, detail.endStock]);
             }
           }
           let buyForms = await db.BuyForm.findAll({

@@ -2,19 +2,29 @@ const db = require("../models");
 const ReportDetail = db.ReportDetail
 
 /*
-
+reportId ReportId
+buy : map [ProductId, Buy]
+sell : map [ProductId, Sell]
+preStock : map [ProductId, [ProductTypeId, endStock]]
 */
 const createReportDetails = async ( reportId, buy, sell, preStock ) => {
   let success;
   const result = await Promise.all(
-    preStock.forEach(async (productId, stock) => {
+    preStock.forEach(async (stockAndType, productId) => {
       try {
         let totalImport, totalExport, beginStock, endStock;
         totalImport = buy.get(productId) ? buy.get(productId) : 1;
         totalExport = sell.get(productId) ? sell.get(productId) : 1;
-        beginStock = stock
+        beginStock = stockAndType[1]
         endStock = beginStock + totalImport - totalExport
-        const reportDetails = await ReportDetail.create({reportId, totalImport, totalExport, beginStock, endStock})
+        const reportDetails = await ReportDetail.create({
+          ReportId : reportId, 
+          totalImport: totalImport, 
+          totalExport: totalExport, 
+          beginStock : beginStock, 
+          endStock: endStock,
+          ProductTypeId: stockAndType[0]
+        })
         console.log(reportDetails)
         if(!reportDetails){
           success = false
