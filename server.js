@@ -57,6 +57,8 @@ const supplierRouter = require("./routes/supplier/supplier");
 const reportRouter = require("./routes/report/report");
 const userRouter = require("./routes/user/user");
 const parameterRouter = require("./routes/parameter/parameter");
+const downloadData = require("./routes/download/download");
+
 //Middleware list
 const authentication = require("./middleware/authentication");
 // Error handlers
@@ -89,6 +91,7 @@ app.use("/service-form", serviceFormRouter);
 app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
 app.use("/parameter", parameterRouter);
+app.use("/download", downloadData);
 
 // use Middleware for error and not found
 
