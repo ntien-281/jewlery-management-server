@@ -307,3 +307,6 @@ VALUES ('SF8', 'a4d92ad3-404f-4081-8e69-7fe81d53a468', 5, 49061250, now(), now()
 INSERT INTO SELLFORMDETAILS (SellFormId, ProductId, Quantity, Subtotal, createdAt, updatedAt, ProductTypeId)
 VALUES ('SF9', 'af6e9856-3d78-44cf-b13d-ecb9b09657b5', 6, 39249000, now(), now(), '3265fa78-c22d-4448-9d79-6af9c96c1542');
 
+
+insert into PARAMETERS (id, name, value, createdAt, updatedAt)
+values (1, "minPrePaid", 50, now(), now());
