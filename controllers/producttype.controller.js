@@ -21,8 +21,8 @@ const getAllProductTypes = async (req, res) => {
 
 // Tạo loại sp mới
 const createNewProductType = async (req, res) => {
-  const { name, unit, interest } = req.body;
-  if (!name || !unit || !interest) {
+  const { name, unit, interest, UnitId } = req.body;
+  if (!name || !unit || !interest || !UnitId) {
     res.status(400).send("Please provide name, unit and interest");
   }
   const duplicate = await ProductTypes.findOne({
@@ -39,6 +39,7 @@ const createNewProductType = async (req, res) => {
     name,
     unit,
     interest,
+    UnitId
   });
   if (newType) {
     console.log("new product type created");
@@ -66,7 +67,7 @@ const getWithId = async (req, res) => {
 
 const updateProductType = async (req, res) => {
   const toUpdateId = req.params.id;
-  const { name, unit, interest } = req.body;
+  const { name, unit, interest, UnitId } = req.body;
   let duplicate = await ProductTypes.findOne({
     where: {
       name: name,
@@ -81,6 +82,7 @@ const updateProductType = async (req, res) => {
     productType.name = name ? name : productType.name;
     productType.unit = unit ? unit : productType.unit;
     productType.interest = interest ? interest : productType.interest;
+    productType.UnitId = UnitId ? UnitId : productType.UnitId;
     await productType.save();
     console.log(`productType ${toUpdateId} updated succesfully.`);
     res.status(200).send(productType);

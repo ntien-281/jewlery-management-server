@@ -8,13 +8,11 @@ router.post('/', async (req, res) => {
     'attachment; filename="SheetJSNode.xlsx"'
   );
   res.setHeader("Content-Type", "application/vnd.ms-excel");
-  let data = JSON.stringify(req.body);
-  console.log(data);
-  // res.status(200).send(data);
+  let data = req.body.newBody;
   try{
-    const worksheet = XLSX.utils.json_to_sheet(JSON.parse([data]));
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    const worksheet = XLSX.utils.json_to_sheet(JSON.parse(data));
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
     var downloadFile = XLSX.write(workbook, {
       type: 'buffer',
       bookType: "xlsx"
