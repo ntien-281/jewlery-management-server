@@ -58,6 +58,7 @@ const reportRouter = require("./routes/report/report");
 const userRouter = require("./routes/user/user");
 const parameterRouter = require("./routes/parameter/parameter");
 const downloadData = require("./routes/download/download");
+const unitRouter = require("./routes/unit/unit");
 
 //Middleware list
 const authentication = require("./middleware/authentication");
@@ -92,6 +93,7 @@ app.use("/supplier", supplierRouter);
 app.use("/report", reportRouter);
 app.use("/parameter", parameterRouter);
 app.use("/download", downloadData);
+app.use("/unit", unitRouter);
 
 // use Middleware for error and not found
 
