@@ -115,4 +115,20 @@ const updateStock = async (productId, qty, type="sell") => {
   }
 }
 
-module.exports = { getAllProducts, createProduct, getWithId, updateProduct, updateStock }
+const deleteProduct = async (req, res) => {
+  const id = req.params.id;
+  try {
+    let result = await Product.findByPk(id);
+    if (result) {
+      await result.destroy();
+      res.status(200).send("prod deleted");
+    } else {
+      res.status(404).send("prod not found")
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong")
+  }
+}
+
+module.exports = { getAllProducts, createProduct, getWithId, updateProduct, updateStock, deleteProduct }

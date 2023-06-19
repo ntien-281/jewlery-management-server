@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     ServiceForm.belongsToMany(models.ServiceType, {
       through: models.ServiceFormDetail
     })
-    ServiceForm.hasMany(models.ServiceFormDetail)
+    ServiceForm.hasMany(models.ServiceFormDetail, {onDelete: 'cascade', hooks: true})
   }
 
   return ServiceForm;

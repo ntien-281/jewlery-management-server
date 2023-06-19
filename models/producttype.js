@@ -11,10 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Product, BuyFormDetail, SellFormDetail, ReportDetail, Unit }) {
       // define association here
-      this.hasMany(Product)
-      this.hasMany(BuyFormDetail)
-      this.hasMany(SellFormDetail)
-      this.hasMany(ReportDetail)
+      this.hasMany(Product, {
+        onDelete: 'cascade', hooks: true
+      })
+      this.hasMany(BuyFormDetail, {
+        onDelete: 'cascade', hooks: true
+      })
+      this.hasMany(SellFormDetail, {
+        onDelete: 'cascade', hooks: true
+      })
+      this.hasMany(ReportDetail, {
+        onDelete: 'cascade', hooks: true
+      })
       this.belongsTo(Unit);
     }
   }

@@ -83,4 +83,20 @@ const getServiceTypeById = async (req, res) => {
   });
 }
 
-module.exports = { getAllServiceTypes, updateServiceType, addServiceType, getServiceTypeById };
+const deleteServiceType = async (req, res) => {
+  const id = req.params.id;
+  try {
+    let result = await ServiceType.findByPk(id);
+    if (result) {
+      await result.destroy();
+      res.status(200).send("service deleted");
+    } else {
+      res.status(404).send("service not found")
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong")
+  }
+}
+
+module.exports = { getAllServiceTypes, updateServiceType, addServiceType, getServiceTypeById, deleteServiceType };

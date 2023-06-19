@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     SellForm.belongsToMany(models.Product, {
       through: models.SellFormDetail
     })
-    SellForm.hasMany(models.SellFormDetail)
+    SellForm.hasMany(models.SellFormDetail, {onDelete: 'cascade', hooks: true})
   }
 
   return SellForm;

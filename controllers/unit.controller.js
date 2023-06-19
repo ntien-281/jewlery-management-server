@@ -80,5 +80,21 @@ const updateUnit = async (req, res) => {
   }
 }
 
+const deleteUnit = async (req, res) => {
+  const id = req.params.id;
+  try {
+    let result = await Unit.findByPk(id);
+    if (result) {
+      await result.destroy();
+      res.status(200).send("Unit deleted")
+    } else {
+      res.status(400).send("Unit not found");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong");
+  }
+}
 
-module.exports = { getAllUnits, createUnit, getWithId, updateUnit }
+
+module.exports = { getAllUnits, createUnit, getWithId, updateUnit,deleteUnit }

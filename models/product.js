@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(Report, {
         through: ReportDetail
       })
-      this.hasMany(ReportDetail)
-      this.hasMany(SellFormDetail)
-      this.hasMany(BuyFormDetail)
+      this.hasMany(ReportDetail, { onDelete: 'cascade', hooks: true })
+      this.hasMany(SellFormDetail, { onDelete: 'cascade', hooks: true })
+      this.hasMany(BuyFormDetail, { onDelete: 'cascade', hooks: true })
       this.belongsToMany(BuyForm, {
         through: BuyFormDetail
       });

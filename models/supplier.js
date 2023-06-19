@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Supplier.associate = (models) => {
-    Supplier.hasMany(models.BuyForm);
+    Supplier.hasMany(models.BuyForm, { onDelete: 'cascade', hooks: true });
   };
 
   return Supplier;

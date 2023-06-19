@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Unit.associate = (models) => {
-      Unit.hasMany(models.ProductType)
+      Unit.hasMany(models.ProductType, {
+        onDelete: 'cascade', hooks: true
+      })
     }
 
     return Unit;

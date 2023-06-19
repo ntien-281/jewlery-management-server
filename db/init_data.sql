@@ -307,6 +307,8 @@ VALUES ('SF8', 'a4d92ad3-404f-4081-8e69-7fe81d53a468', 5, 49061250, now(), now()
 INSERT INTO SELLFORMDETAILS (SellFormId, ProductId, Quantity, Subtotal, createdAt, updatedAt, ProductTypeId)
 VALUES ('SF9', 'af6e9856-3d78-44cf-b13d-ecb9b09657b5', 6, 39249000, now(), now(), '3265fa78-c22d-4448-9d79-6af9c96c1542');
 
-
 insert into PARAMETERS (id, name, value, createdAt, updatedAt)
 values (1, "minPrePaid", 50, now(), now());
+
+insert into users (username, password, token, createdAt, updatedAt) values ('admin', '$2b$10$kbNpldjGfVjpZewxFE5BR.4CE4TACw9WgiasLOKOq/AYE1c6jgDWK', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjg3MTY4MzI1LCJleHAiOjE2ODc3NzMxMjV9.dzOZcA2uXwZT1MP5Yj60ADn4XKgQZz0kk3DrVc4xtBk', now(), now());
+insert into users (username, password, token, createdAt, updatedAt) values ('normal', '$2b$10$yKXVfypvhjmvNm70/zsUCu.2kig9eQWX30X9mgKQIQPzB/0A6jpWy', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vcm1hbCIsImlhdCI6MTY4NzE2ODY3OCwiZXhwIjoxNjg3NzczNDc4fQ.qOhqwZz5Y5hc0rYGDx3P0SdGHRms-rdqPrxiTKce_kE', now(), now())

@@ -69,4 +69,20 @@ const getAllBuyForm = async (req, res) => {
   }
 };
 
-module.exports = { createBuyForm, getAllBuyForm };
+const deleteBuyForm = async (req, res) => {
+  const id = req.params.id;
+  try {
+    let result = await BuyForm.findByPk(id);
+    if (result) {
+      await result.destroy();
+      res.status(200).send("form deleted");
+    } else {
+      res.status(404).send("form not found")
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong")
+  }
+}
+
+module.exports = { createBuyForm, getAllBuyForm, deleteBuyForm };
